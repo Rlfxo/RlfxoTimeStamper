@@ -11,25 +11,33 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @FetchRequest(entity: TimeEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TimeEntity.start, ascending: true)]) var Time: FetchedResults<TimeEntity>
+    @FetchRequest(entity: TimeEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TimeEntity.insertTime, ascending: true)]) var Time: FetchedResults<TimeEntity>
+    
+    @State var textFieldTitle: String = ""
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(Time) { times in
-                    Text("\(times.start!,formatter: timeFormatter)")
+            VStack(spacing: 10) {
+                TextField("",text: $textFieldTitle)
+                    .background(Color(UIColor.secondarySystemBackground)).cornerRadius(10)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal,10)
+                List {
+                    ForEach(Time) { times in
+                        Text("\n\(times.insertTime!,formatter: shortTimeFormatter)~\n\(times.time) second")
+                    }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
-            }
-            
-            .listStyle(PlainListStyle())
-            .navigationBarTitle("Time Stamp")
-            .navigationBarItems(
-                leading: EditButton(),
-                trailing: Button(action: addItem){
-                    Label("추가",systemImage: "plus")
-                }
+                
+                .listStyle(PlainListStyle())
+                .navigationBarTitle("Time Stamp")
+                .navigationBarItems(
+                    leading: EditButton(),
+                    trailing: Button(action: addItem){
+                        Label("추가",systemImage: "plus")
+                    }
             )
+            }
         }
     }
     
@@ -47,7 +55,9 @@ struct ContentView: View {
     private func addItem() {
         withAnimation {
             let newItem = TimeEntity(context: viewContext)
-            newItem.start = Date()
+            newItem.insertTime = Date()
+            newItem.name = textFieldTitle
+            textFieldTitle = ""
             
             saveItems()
         }
@@ -64,7 +74,15 @@ struct ContentView: View {
     }
 }
 
-private let timeFormatter: DateFormatter = {
+private let longTimeFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    formatter.timeStyle = .medium
+    formatter.locale = Locale(identifier: "ko-kr")
+    return formatter
+}()
+
+private let shortTimeFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
     formatter.timeStyle = .medium
