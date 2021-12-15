@@ -24,7 +24,16 @@ struct ContentView: View {
                     .padding(.horizontal,10)
                 List {
                     ForEach(Time) { times in
-                        Text("\n\(times.insertTime!,formatter: shortTimeFormatter)~\n\(times.time) second")
+                        HStack {
+                            Text("\(times.name!)\n\(times.insertTime!,formatter: shortTimeFormatter) ~ \(times.saveTime!,formatter: relativeTimeFormatter)")
+                                .lineLimit(3)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text("\(times.time)")
+                                .fontWeight(.medium)
+                                .multilineTextAlignment(.trailing)
+                        }
+                        
                     }
                     .onDelete(perform: deleteItems)
                 }
@@ -56,6 +65,8 @@ struct ContentView: View {
         withAnimation {
             let newItem = TimeEntity(context: viewContext)
             newItem.insertTime = Date()
+            newItem.saveTime = Date()
+            if(textFieldTitle == "") { textFieldTitle = "이름 몰?루" }
             newItem.name = textFieldTitle
             textFieldTitle = ""
             
@@ -74,18 +85,22 @@ struct ContentView: View {
     }
 }
 
-private let longTimeFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
+private let relativeTimeFormatter: RelativeDateTimeFormatter = {
+    let formatter = RelativeDateTimeFormatter()
     formatter.locale = Locale(identifier: "ko-kr")
+    formatter.dateTimeStyle = .named
+    return formatter
+}()
+
+private let secTimeFormatter: DateFormatter = { //Fix it // 눌러야만 동작이 되는디요
+    let formatter = DateFormatter()
+    formatter.timeStyle = .medium
     return formatter
 }()
 
 private let shortTimeFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
+    formatter.dateFormat = "YYYY년 M월d일"
     formatter.locale = Locale(identifier: "ko-kr")
     return formatter
 }()

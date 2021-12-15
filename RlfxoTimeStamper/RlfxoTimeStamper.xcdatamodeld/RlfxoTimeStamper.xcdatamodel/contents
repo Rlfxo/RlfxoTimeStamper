@@ -3,9 +3,10 @@
     <entity name="TimeEntity" representedClassName="TimeEntity" syncable="YES" codeGenerationType="class">
         <attribute name="insertTime" optional="YES" attributeType="Date" defaultDateTimeInterval="-120862800" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="이름 몰?루"/>
+        <attribute name="saveTime" optional="YES" attributeType="Date" defaultDateTimeInterval="-120862800" usesScalarValueType="NO"/>
         <attribute name="time" optional="YES" attributeType="Integer 32" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="TimeEntity" positionX="-63" positionY="-9" width="128" height="74"/>
+        <element name="TimeEntity" positionX="-63" positionY="-9" width="128" height="103"/>
     </elements>
 </model>

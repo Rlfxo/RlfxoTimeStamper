@@ -16,7 +16,8 @@ struct PersistenceController {
         for _ in 0..<1 {
             let newTime = TimeEntity(context: viewContext)
             newTime.insertTime = Date()
-            newTime.time = 0
+            newTime.saveTime = Date()
+            newTime.time = 70
             newTime.name = "프리뷰"
         }
         do {
