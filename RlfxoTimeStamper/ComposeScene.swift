@@ -57,7 +57,18 @@ fileprivate struct SaveButton: View {
     var body: some View {
         Button(action: {
             
+            let newItem = TimeEntity(context: viewContext)
+            newItem.insertTime = Date()
+            newItem.saveTime = Date()
+            if(title == "") { title = "이름 몰?루" }
+            newItem.name = title
             
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
             
             self.show = false
         }, label: {
