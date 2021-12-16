@@ -30,7 +30,7 @@ struct ContentView: View {
                                 .lineLimit(3)
                                 .multilineTextAlignment(.leading)
                             Spacer()
-                            Text("\((times.time)/3600)시간 \((times.time)/60)분 \((times.time)%60)초")
+                            Text("\((times.time)/3600)시간 \((times.time)%3600/60)분 \((times.time)%60)초")
                                 .fontWeight(.medium)
                                 .multilineTextAlignment(.trailing)
                         }
