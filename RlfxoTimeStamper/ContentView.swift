@@ -14,6 +14,7 @@ struct ContentView: View {
     @FetchRequest(entity: TimeEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TimeEntity.insertTime, ascending: true)]) var Time: FetchedResults<TimeEntity>
     
     @State var textFieldTitle: String = ""
+    @State var showComposer: Bool = false
 
     var body: some View {
         NavigationView {
@@ -29,24 +30,34 @@ struct ContentView: View {
                                 .lineLimit(3)
                                 .multilineTextAlignment(.leading)
                             Spacer()
-                            Text("\(times.time)")
+                            Text("\((times.time)/3600)시간 \((times.time)/60)분 \((times.time)%60)초")
                                 .fontWeight(.medium)
                                 .multilineTextAlignment(.trailing)
                         }
-                        
                     }
                     .onDelete(perform: deleteItems)
                 }
-                
                 .listStyle(PlainListStyle())
                 .navigationBarTitle("Time Stamp")
                 .navigationBarItems(
                     leading: EditButton(),
-                    trailing: Button(action: addItem){
-                        Label("추가",systemImage: "plus")
-                    }
-            )
+                    trailing: ModalButton(show: $showComposer))
+                .sheet(isPresented: $showComposer, content: {
+                    ComposeScene(showComposer: self.$showComposer)
+                })
             }
+        }
+    }
+    
+    private struct ModalButton: View {
+        @Binding var show: Bool
+        
+        var body: some View {
+            Button(action: {
+                self.show = true
+            }, label: {
+                Image(systemName: "plus")
+            })
         }
     }
     
@@ -89,12 +100,6 @@ private let relativeTimeFormatter: RelativeDateTimeFormatter = {
     let formatter = RelativeDateTimeFormatter()
     formatter.locale = Locale(identifier: "ko-kr")
     formatter.dateTimeStyle = .named
-    return formatter
-}()
-
-private let secTimeFormatter: DateFormatter = { //Fix it // 눌러야만 동작이 되는디요
-    let formatter = DateFormatter()
-    formatter.timeStyle = .medium
     return formatter
 }()
 
