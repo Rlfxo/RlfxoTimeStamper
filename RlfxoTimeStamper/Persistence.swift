@@ -13,7 +13,7 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<1 {
+        for _ in 0..<5 {
             let newTime = TimeEntity(context: viewContext)
             newTime.insertTime = Date()
             newTime.saveTime = Date()

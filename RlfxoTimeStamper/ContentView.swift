@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @EnvironmentObject var DateForm: DateFormatter
+    @EnvironmentObject var RelativeForm: RelativeDateTimeFormatter
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(entity: TimeEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TimeEntity.insertTime, ascending: true)]) var Time: FetchedResults<TimeEntity>
@@ -26,7 +28,7 @@ struct ContentView: View {
                 List {
                     ForEach(Time) { times in
                         HStack {
-                            Text("\(times.name!)\n\(times.insertTime!,formatter: shortTimeFormatter) ~ \(times.saveTime!,formatter: relativeTimeFormatter)")
+                            Text("\(times.name!)\n\(times.insertTime!,formatter: self.DateForm) ~ \(times.saveTime!,formatter: self.RelativeForm)")
                                 .lineLimit(3)
                                 .multilineTextAlignment(.leading)
                             Spacer()
@@ -96,22 +98,11 @@ struct ContentView: View {
     }
 }
 
-private let relativeTimeFormatter: RelativeDateTimeFormatter = {
-    let formatter = RelativeDateTimeFormatter()
-    formatter.locale = Locale(identifier: "ko-kr")
-    formatter.dateTimeStyle = .named
-    return formatter
-}()
-
-private let shortTimeFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "YYYY년 M월d일"
-    formatter.locale = Locale(identifier: "ko-kr")
-    return formatter
-}()
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(DateFormatter.shortTimeFormatter)
+            .environmentObject(RelativeDateTimeFormatter.relativeTimeFormatter)
     }
 }

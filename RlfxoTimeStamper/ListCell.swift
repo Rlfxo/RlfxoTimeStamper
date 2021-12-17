@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ListCell: View {
+    @EnvironmentObject var DateForm: DateFormatter
+    @EnvironmentObject var RelativeForm: RelativeDateTimeFormatter
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: TimeEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TimeEntity.insertTime, ascending: true)]) var Time: FetchedResults<TimeEntity>
     
@@ -18,7 +20,7 @@ struct ListCell: View {
             List {
                 ForEach(Time) { times in
                     HStack {
-                        Text("\(times.name!)\n\(times.insertTime!) ~ \(times.saveTime!)")
+                        Text("\(times.name!)\n\(times.insertTime!,formatter: self.DateForm) ~ \(times.saveTime!,formatter: self.RelativeForm)")
                             .lineLimit(3)
                             .multilineTextAlignment(.leading)
                         Spacer()
@@ -31,6 +33,7 @@ struct ListCell: View {
             }
         }
     }
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             guard let index = offsets.first else { return }
@@ -40,8 +43,6 @@ struct ListCell: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -51,6 +52,9 @@ struct ListCell: View {
 
 struct ListCell_Previews: PreviewProvider {
     static var previews: some View {
-        ListCell().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ListCell()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(DateFormatter.shortTimeFormatter)
+            .environmentObject(RelativeDateTimeFormatter.relativeTimeFormatter)
     }
 }
