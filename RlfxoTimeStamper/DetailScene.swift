@@ -8,17 +8,24 @@
 import SwiftUI
 
 struct DetailScene: View {
+    @ObservedObject var times: TimeEntity
     
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(entity: TimeEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TimeEntity.insertTime, ascending: true)]) var Time: FetchedResults<TimeEntity>
     
+    @State private var showEditSheet = false
+    @State private var showDeleteAlert = false
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Detail View")
     }
 }
 
 struct DetailScene_Previews: PreviewProvider {
     static var previews: some View {
-        DetailScene().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        DetailScene(times: TimeEntity())
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

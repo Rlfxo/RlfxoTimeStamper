@@ -15,6 +15,8 @@ struct RlfxoTimeStamperApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(DateFormatter.shortTimeFormatter)
+                .environmentObject(RelativeDateTimeFormatter.relativeTimeFormatter)
         }
     }
 }
