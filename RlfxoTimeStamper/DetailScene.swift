@@ -19,7 +19,8 @@ struct DetailScene: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        Text("Detail View")
+        GifImage("DropWater")
+            .frame(width: 200, height: 600)
     }
 }
 

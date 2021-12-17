@@ -15,6 +15,8 @@
 		8946569027698A17008CF761 /* RlfxoTimeStamper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8946568E27698A17008CF761 /* RlfxoTimeStamper.xcdatamodeld */; };
 		89AF828F276C4FE90055AE9C /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AF828E276C4FE90055AE9C /* ListCell.swift */; };
 		89AF8291276C52BF0055AE9C /* DateFormatter+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AF8290276C52BF0055AE9C /* DateFormatter+Time.swift */; };
+		89AF8293276C64320055AE9C /* DropWater.gif in Resources */ = {isa = PBXBuildFile; fileRef = 89AF8292276C64320055AE9C /* DropWater.gif */; };
+		89AF8295276C649B0055AE9C /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AF8294276C649A0055AE9C /* GifImage.swift */; };
 		89F479BC276AFDAD00C5563F /* DetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F479BB276AFDAD00C5563F /* DetailScene.swift */; };
 		89F479C0276B04FF00C5563F /* ComposeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F479BF276B04FF00C5563F /* ComposeScene.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +31,8 @@
 		8946568F27698A17008CF761 /* RlfxoTimeStamper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RlfxoTimeStamper.xcdatamodel; sourceTree = "<group>"; };
 		89AF828E276C4FE90055AE9C /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		89AF8290276C52BF0055AE9C /* DateFormatter+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Time.swift"; sourceTree = "<group>"; };
+		89AF8292276C64320055AE9C /* DropWater.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = DropWater.gif; sourceTree = "<group>"; };
+		89AF8294276C649A0055AE9C /* GifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
 		89F479BB276AFDAD00C5563F /* DetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScene.swift; sourceTree = "<group>"; };
 		89F479BF276B04FF00C5563F /* ComposeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,10 +73,12 @@
 				89F479BF276B04FF00C5563F /* ComposeScene.swift */,
 				89AF828E276C4FE90055AE9C /* ListCell.swift */,
 				8946568727698A16008CF761 /* Assets.xcassets */,
+				89AF8292276C64320055AE9C /* DropWater.gif */,
 				8946568C27698A17008CF761 /* Persistence.swift */,
 				8946568E27698A17008CF761 /* RlfxoTimeStamper.xcdatamodeld */,
 				8946568927698A17008CF761 /* Preview Content */,
 				89AF8290276C52BF0055AE9C /* DateFormatter+Time.swift */,
+				89AF8294276C649A0055AE9C /* GifImage.swift */,
 			);
 			path = RlfxoTimeStamper;
 			sourceTree = "<group>";
@@ -144,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8946568B27698A17008CF761 /* Preview Assets.xcassets in Resources */,
+				89AF8293276C64320055AE9C /* DropWater.gif in Resources */,
 				8946568827698A16008CF761 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,6 +164,7 @@
 			files = (
 				8946568D27698A17008CF761 /* Persistence.swift in Sources */,
 				89F479BC276AFDAD00C5563F /* DetailScene.swift in Sources */,
+				89AF8295276C649B0055AE9C /* GifImage.swift in Sources */,
 				8946568627698A15008CF761 /* ContentView.swift in Sources */,
 				89AF828F276C4FE90055AE9C /* ListCell.swift in Sources */,
 				8946568427698A15008CF761 /* RlfxoTimeStamperApp.swift in Sources */,
