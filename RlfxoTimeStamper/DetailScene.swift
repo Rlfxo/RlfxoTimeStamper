@@ -40,17 +40,20 @@ struct DetailScene: View {
                     }
                 }
                 .navigationBarTitle("\(name)")
-                .navigationBarItems(trailing: Button(action: {
-                    times.time += Int32(addTime)
-                    addTime = 0
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        let nsError = error as NSError
-                        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-                    }
-                }, label: {
-                    Text("Plus")
+                .navigationBarItems(
+                    leading: Button(action: { addTime = 0 },
+                                    label: {Text("Reset")}),
+                    trailing: Button(action: {
+                        times.time += Int32(addTime)
+                        addTime = 0
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            let nsError = error as NSError
+                            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                        }
+                    }, label: {
+                    Text("Add")
                 }))
             }
         }
