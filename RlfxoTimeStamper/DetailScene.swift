@@ -16,11 +16,44 @@ struct DetailScene: View {
     @State private var showEditSheet = false
     @State private var showDeleteAlert = false
     
+    @State private var addTime = 0
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        GifImage("DropWater")
-            .frame(width: 200, height: 600)
+        if let name = times.name {
+            NavigationView {
+                VStack {
+                    GifImage("DropWater")
+                    Spacer()
+                    HStack {
+                    if let loadTime = times.time {
+                        Text("\(loadTime/60)m : \(loadTime%60)s +")
+                    }
+                    Text("\(addTime/60)m : \(addTime%60)s")
+                        .onReceive(timer) { time in
+                            if self.addTime >= 0 {
+                                self.addTime += 1
+                            }
+                        }
+                    }
+                }
+                .navigationBarTitle("\(name)")
+                .navigationBarItems(trailing: Button(action: {
+                    times.time += Int32(addTime)
+                    addTime = 0
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        let nsError = error as NSError
+                        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                    }
+                }, label: {
+                    Text("Plus")
+                }))
+            }
+        }
     }
 }
 
